@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <router-view />
+  <div>waiting</div>
 </template>
 
 <style scoped>

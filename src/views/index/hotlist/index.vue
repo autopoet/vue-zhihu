@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <router-view />
+  <div>hotlist</div>
 </template>
 
 <style scoped>

@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <router-view />
+  <div>video</div>
 </template>
 
 <style scoped>

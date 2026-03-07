@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <router-view />
+  <div>recommend</div>
 </template>
 
 <style scoped>

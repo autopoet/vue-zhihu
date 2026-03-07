@@ -1,6 +1,10 @@
+<script setup>
+</script>
+
 <template>
-  <div>《Index》</div>
+  <div>index</div>
 </template>
 
-<script setup name="IndexView">
-</script>
+<style scoped>
+
+</style>
