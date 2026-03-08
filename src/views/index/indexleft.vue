@@ -6,7 +6,7 @@ defineOptions({
 
 <template>
   <div class="index-left">
-    <h2>首页左侧内容</h2>
+    <h2>首页左侧</h2>
   </div>
 </template>
 
