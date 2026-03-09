@@ -38,7 +38,8 @@ const handleSearch = () => {
 
 .search-wrapper {
   position: relative;
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
   height: 40px;
   background: #f6f6f6;
   border-radius: 20px;
@@ -46,6 +47,12 @@ const handleSearch = () => {
   align-items: center;
   padding: 0 16px;
   transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 768px) {
+  .search-wrapper {
+    max-width: 180px; /* 手机端搜索框缩短 */
+  }
 }
 
 .search-wrapper:hover {

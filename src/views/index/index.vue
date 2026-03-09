@@ -146,4 +146,46 @@ const handleTabClick = (url) => {
 .index-right {
   flex: 0 0 300px;
 }
+
+/* --- 自适应逻辑开始 --- */
+
+/* 1. 当屏幕小于 1000px 时（小屏笔记本/平板） */
+@media screen and (max-width: 1000px) {
+  .content-wrapper {
+    max-width: 100%; /* 取消固定宽度，改为充满屏幕 */
+    padding: 0 10px; /* 缩小左右留白 */
+  }
+
+  .index-right {
+    flex: 0 0 280px; /* 侧边栏稍微变窄一点 */
+  }
+}
+
+/* 2. 当屏幕小于 768px 时（手机端） */
+@media screen and (max-width: 768px) {
+  .content-wrapper {
+    flex-direction: column; /* 布局从水平排布变为垂直排布 */
+    gap: 0;
+  }
+
+  .content-card {
+    border-radius: 0; /* 手机端内容铺满，去掉圆角显得更大气 */
+    padding: 15px;
+  }
+
+  .index-right {
+    display: none; /* 手机端通常不需要显示复杂的侧边栏 */
+  }
+
+  .tab-nav {
+    overflow-x: auto; /* 标签栏如果太多，支持水平滑动 */
+    white-space: nowrap;
+    padding-bottom: 5px;
+  }
+
+  /* 隐藏滚动条（美观考虑） */
+  .tab-nav::-webkit-scrollbar {
+    display: none;
+  }
+}
 </style>

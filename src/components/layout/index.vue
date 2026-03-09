@@ -20,6 +20,14 @@ import LayoutHeader from './header.vue';
 .layout-container {
   background-color: #f6f6f6;
   min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden; /* 核心：强制禁止横向滚动 */
+}
+
+@media screen and (max-width: 768px) {
+  .layout-header {
+    padding: 0 5px; /* 手机端导航栏外边距极小化 */
+  }
 }
 
 .layout-container :deep(.el-container) {

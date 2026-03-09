@@ -208,4 +208,24 @@ const handleMouseLeave = () => {
 .dropdown-item:hover .el-icon {
   color: #0066ff;
 }
+.action-btn:active {
+  transform: scale(0.9);
+}
+
+@media screen and (max-width: 768px) {
+  .header-userinfo {
+    gap: 10px; /* 缩小间距 */
+  }
+
+  .icon-text {
+    display: none; /* 手机端隐藏“消息”、“私信”等文字，只留图标 */
+  }
+
+  .icon-wrapper {
+    padding: 4px; /* 减小点击区域 */
+  }
+
+  /* 可选：如果你觉得三个图标还是多，可以隐藏掉创作中心 */
+  /* .icon-wrapper:nth-child(3) { display: none; } */
+}
 </style>

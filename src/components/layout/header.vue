@@ -50,4 +50,14 @@ import HeaderUserInfo from './header-userinfo.vue'
   flex: 0 0 auto;
   margin-left: 12px;
 }
+@media screen and (max-width: 768px) {
+  .header-container {
+    padding: 0 10px;
+    gap: 5px;
+  }
+
+  .header-left {
+    margin-right: 5px;
+  }
+}
 </style>
