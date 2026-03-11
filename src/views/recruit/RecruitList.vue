@@ -1,11 +1,16 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import FeedCard from '@/components/ui/FeedCard.vue'
 import SkeletonCard from '@/components/ui/SkeletonCard.vue'
+import { geekToast } from '@/utils/toast.js'
 
 const router = useRouter()
 const loading = ref(true)
+const isLoadingMore = ref(false)
+const hasMore = ref(true)
+const observerTarget = ref(null)
+let observer = null
 
 const goToDetail = (id) => {
   router.push(`/home/detail/${id}`)
@@ -131,11 +136,70 @@ onMounted(() => {
       }
     ]
     loading.value = false
+    setupObserver()
   }, 1000)
 })
 
+onUnmounted(() => {
+  if (observer) observer.disconnect()
+})
+
+const setupObserver = () => {
+  observer = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting && !isLoadingMore.value && hasMore.value) {
+        loadMore()
+      }
+    },
+    { threshold: 0.1 }
+  )
+  if (observerTarget.value) {
+    observer.observe(observerTarget.value)
+  }
+}
+
+const loadMore = () => {
+  isLoadingMore.value = true
+  // 模拟分页加载
+  setTimeout(() => {
+    const moreData = [
+      {
+        id: list.value.length + 100,
+        type: 'recruit',
+        author: '新来的极客',
+        action: '发布了寻人启事',
+        title: `基于 Vue3+Rust 的跨平台桌面应用开发 (第${list.value.length / 8 + 1}批)`,
+        excerpt: '我用 Tauri + Vue3 写了一个很炫酷的界面，但是由于没有系统地学过 Rust，现在遇到了内存泄漏和线程通信的瓶颈。急需一名熟悉 Rust 的后端/底层老哥加入，咱们一起把这套开源生态做大做强！',
+        competition: '开源项目',
+        requiredSkills: ['Rust', 'Tauri', 'C++'],
+        status: '招募中',
+        updatedTime: '刚刚',
+        isFavorite: false,
+        commentCount: 5,
+      }
+    ]
+    list.value.push(...moreData)
+    isLoadingMore.value = false
+    
+    // 假设加载3页后就到底了
+    if (list.value.length >= 11) {
+      hasMore.value = false
+      if (observer) observer.disconnect()
+    }
+  }, 1200)
+}
+
 const toggleFavorite = (item) => {
   item.isFavorite = !item.isFavorite
+  if (item.isFavorite) {
+    geekToast.success('已加入我的收藏夹')
+  } else {
+    geekToast.info('已取消收藏')
+  }
+}
+
+const sharePost = () => {
+  geekToast.success('招募分享链接已复制到剪贴板！')
 }
 </script>
 
@@ -179,7 +243,7 @@ const toggleFavorite = (item) => {
                 <svg class="btn-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.477 2 2 5.582 2 10c0 1.81.742 3.477 1.986 4.793-.162 1.353-.87 2.946-1.554 3.753a.5.5 0 0 0 .584.767c1.78-.9 3.864-1.574 5.253-1.895C9.434 17.79 10.686 18 12 18c5.523 0 10-3.582 10-8s-4.477-8-10-8Z"/></svg>
                 <span class="text-hide-mobile">{{ item.commentCount }} 条评论</span>
               </button>
-              <button class="action-btn" @click.stop>
+              <button class="action-btn" @click.stop="sharePost(item)">
                 <svg class="btn-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M16 5l-1.42 1.42L16.16 8H9a5 5 0 0 0 0 10h2v-2H9a3 3 0 0 1 0-6h7.16l-1.58 1.58L16 13l4-4-4-4z"/></svg>
                 <span class="text-hide-mobile">分享招募</span>
               </button>
@@ -194,6 +258,17 @@ const toggleFavorite = (item) => {
             </div>
           </template>
         </FeedCard>
+
+        <!-- 无限滚动指示器 -->
+        <div ref="observerTarget" class="infinite-scroll-trigger">
+          <div v-if="isLoadingMore" class="loading-state">
+            <div class="spinner"></div>
+            <span>正在加载更多招募...</span>
+          </div>
+          <div v-if="!hasMore && !loading" class="end-state">
+            没有更多招募信息了，快去自己发布一个吧！
+          </div>
+        </div>
       </template>
     </div>
   </div>
@@ -273,4 +348,49 @@ const toggleFavorite = (item) => {
   .excerpt { -webkit-line-clamp: 4; line-clamp: 4; }
   .action-btn span.text-hide-mobile { display: none; }
 }
+
+/* 无限滚动加载状态 */
+.infinite-scroll-trigger {
+  padding: 24px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-fg-muted);
+  font-size: 14px;
+}
+
+.loading-state {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-border-default);
+  border-top-color: var(--color-accent-fg);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.end-state {
+  position: relative;
+  padding: 0 40px;
+}
+
+.end-state::before, .end-state::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 30px;
+  height: 1px;
+  background: var(--color-border-default);
+}
+.end-state::before { left: 0; }
+.end-state::after { right: 0; }
 </style>

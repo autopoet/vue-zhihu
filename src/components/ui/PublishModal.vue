@@ -1,5 +1,7 @@
 <script setup>
-import { ref, watch, onUnmounted } from 'vue'
+import { ref, watch, onUnmounted, nextTick } from 'vue'
+import Vditor from 'vditor'
+import 'vditor/dist/index.css'
 
 const props = defineProps({
   modelValue: {
@@ -36,18 +38,58 @@ const removeTag = (index) => {
   form.value.tags.splice(index, 1)
 }
 
-watch(() => props.modelValue, (newVal) => {
+const vditorContainer = ref(null)
+let vditorInstance = null
+
+watch(() => props.modelValue, async (newVal) => {
   isVisible.value = newVal
   if (newVal) {
     publishType.value = props.defaultType
     document.body.style.overflow = 'hidden'
+    
+    // 初始化 Vditor
+    await nextTick()
+    if (vditorContainer.value && !vditorInstance) {
+      const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark'
+      vditorInstance = new Vditor(vditorContainer.value, {
+        height: 300,
+        mode: 'sv',
+        theme: isDarkMode ? 'dark' : 'classic',
+        icon: 'material',
+        placeholder: '支持 Markdown 语法，写下你想要发布的内容...',
+        toolbarConfig: {
+          pin: true,
+        },
+        cache: { enable: false },
+        toolbar: [
+           'emoji', 'headings', 'bold', 'italic', 'strike', 'link', '|',
+           'list', 'ordered-list', 'check', 'outdent', 'indent', '|',
+           'quote', 'line', 'code', 'inline-code', '|',
+           'undo', 'redo', 'fullscreen', 'edit-mode'
+        ],
+        input: (val) => {
+          form.value.content = val
+        }
+      })
+    } else if (vditorInstance) {
+      // 如果已存在实例，且可能是深浅色切换过的话，也可以根据需要重置 theme
+      vditorInstance.setValue(form.value.content)
+    }
   } else {
     document.body.style.overflow = ''
+    if (vditorInstance) {
+      // 弹窗关闭时不立即销毁以图性能，只是保留实例
+      // 或者在需要在组件卸载时调用 destroy() 即可。
+    }
   }
 })
 
 onUnmounted(() => {
   document.body.style.overflow = ''
+  if (vditorInstance) {
+    vditorInstance.destroy()
+    vditorInstance = null
+  }
 })
 
 const closeModal = () => {
@@ -56,6 +98,7 @@ const closeModal = () => {
   setTimeout(() => {
     form.value = { title: '', content: '', tags: [] }
     tagInput.value = ''
+    if (vditorInstance) vditorInstance.setValue('')
   }, 300)
 }
 
@@ -111,15 +154,9 @@ const handleSubmit = () => {
               <label for="post-title" class="floating-label">输入极具吸引力的标题</label>
             </div>
             
-            <div class="form-floating">
-              <textarea 
-                id="post-content"
-                v-model="form.content" 
-                class="geek-input content-input" 
-                placeholder=" "
-                rows="5"
-              ></textarea>
-              <label for="post-content" class="floating-label">支持 Markdown 语法，写下你想要发布的内容</label>
+            <!-- Vditor 渲染区 -->
+            <div class="vditor-wrapper">
+               <div ref="vditorContainer"></div>
             </div>
             
             <div class="tags-container" @click="$refs.tagInputField.focus()">
@@ -248,6 +285,41 @@ const handleSubmit = () => {
   background: var(--color-canvas-default);
   color: var(--color-accent-fg);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Vditor 定制外壳 */
+.vditor-wrapper {
+  margin-bottom: 24px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--color-border-default);
+  transition: border-color 0.2s;
+}
+
+.vditor-wrapper:focus-within {
+  border-color: var(--color-accent-fg);
+  box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.3);
+}
+
+[data-theme='dark'] .vditor-wrapper:focus-within {
+  box-shadow: 0 0 0 3px rgba(47, 129, 247, 0.4);
+}
+
+/* 覆写 vditor 的一些基础样式以匹配极客风 */
+:deep(.vditor) {
+  border: none !important;
+  border-radius: 0;
+}
+:deep(.vditor-toolbar) {
+  border-bottom: 1px solid var(--color-border-default) !important;
+  background-color: var(--color-canvas-subtle) !important;
+}
+:deep(.vditor-content) {
+  background-color: var(--color-canvas-default) !important;
+}
+:deep(.vditor-textarea) {
+  font-family: inherit;
+  color: var(--color-fg-default) !important;
 }
 
 /* 极客表单下划线交互设计 & 悬浮 Label */

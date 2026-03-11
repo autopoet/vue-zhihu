@@ -1,5 +1,11 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
+import * as echarts from 'echarts/core';
+import { RadarChart } from 'echarts/charts';
+import { TitleComponent, TooltipComponent } from 'echarts/components';
+import { CanvasRenderer } from 'echarts/renderers';
+
+echarts.use([TitleComponent, TooltipComponent, RadarChart, CanvasRenderer]);
 
 const userInfo = ref({
   name: '前端小牛',
@@ -36,6 +42,108 @@ const myPosts = ref([
   }
 ])
 
+// ECharts 雷达图逻辑
+const radarChartRef = ref(null)
+let radarChartInstance = null
+let worker = null
+
+onMounted(() => {
+  generateHeatmapViaWorker()
+  
+  // 初始化 ECharts
+  if (radarChartRef.value) {
+    radarChartInstance = echarts.init(radarChartRef.value)
+    renderRadarChart()
+
+    // 监听主题变化与窗口缩放
+    const resizeObserver = new ResizeObserver(() => {
+      radarChartInstance.resize()
+    })
+    resizeObserver.observe(radarChartRef.value)
+    
+    // 监听 HTML data-theme 属性变化
+    const themeObserver = new MutationObserver(() => {
+      renderRadarChart()
+    })
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
+  }
+})
+
+onUnmounted(() => {
+  if (worker) {
+    worker.terminate()
+  }
+})
+
+const renderRadarChart = () => {
+  if (!radarChartInstance) return
+
+  const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark'
+  const textColor = isDarkMode ? '#8b949e' : '#57606a'
+  const lineColor = isDarkMode ? 'rgba(47, 129, 247, 0.5)' : 'rgba(9, 105, 218, 0.4)'
+  const areaColor = isDarkMode ? 'rgba(47, 129, 247, 0.2)' : 'rgba(9, 105, 218, 0.1)'
+  const splitLineColor = isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)'
+
+  const option = {
+    tooltip: {
+      trigger: 'item',
+      backgroundColor: isDarkMode ? '#1e2329' : '#fff',
+      borderColor: isDarkMode ? '#30363d' : '#d0d7de',
+      textStyle: { color: isDarkMode ? '#c9d1d9' : '#1f2328' }
+    },
+    radar: {
+      indicator: skills.value.map(s => ({ name: s.name, max: 100 })),
+      radius: '65%',
+      splitNumber: 4,
+      axisName: {
+        color: textColor,
+        fontWeight: 600,
+        fontFamily: "'Fira Code', monospace"
+      },
+      splitLine: {
+        lineStyle: {
+          color: [splitLineColor]
+        }
+      },
+      splitArea: {
+        areaStyle: {
+          color: ['transparent']
+        }
+      },
+      axisLine: {
+        lineStyle: {
+          color: splitLineColor
+        }
+      }
+    },
+    series: [
+      {
+        name: '能力值',
+        type: 'radar',
+        data: [
+          {
+            value: skills.value.map(s => s.power),
+            name: '综合战力',
+            symbol: 'circle',
+            symbolSize: 6,
+            itemStyle: {
+              color: isDarkMode ? '#2f81f7' : '#0969da'
+            },
+            lineStyle: {
+              color: lineColor,
+              width: 2
+            },
+            areaStyle: {
+              color: areaColor
+            }
+          }
+        ]
+      }
+    ]
+  };
+  radarChartInstance.setOption(option);
+}
+
 const myJoined = ref([
   {
     id: 3,
@@ -45,19 +153,31 @@ const myJoined = ref([
   }
 ])
 
-// ============= 热力图 (GitHub style heatmap) =============
+// ============= 热力图 (GitHub style heatmap) - 通过 Web Worker 异步处理 =============
 const heatmapDays = ref([])
-const generateHeatmap = () => {
-  const days = []
-  // 生成过去一年的假数据 (52 周 * 7 天 = 364)
-  for(let i = 0; i < 364; i++) {
-    // 随机活跃等级 0-4
-    const level = Math.random() > 0.65 ? Math.floor(Math.random() * 4) + 1 : 0
-    days.push({ id: i, level })
+const generateHeatmapViaWorker = () => {
+  // 使用 Vite 特有语法引入 Web Worker
+  worker = new Worker(new URL('@/workers/dataProcessor.worker.js', import.meta.url), {
+    type: 'module'
+  })
+
+  // 监听返回的消息
+  worker.onmessage = (e) => {
+    const { action, data } = e.data
+    if (action === 'HEATMAP_READY') {
+      heatmapDays.value = data
+      console.log('✅ 收到来自 Web Worker 的独立计算结果')
+    }
   }
-  heatmapDays.value = days
+
+  // 向 Worker 发送任务，要求计算 364 天的热力数据
+  worker.postMessage({
+    action: 'GENERATE_HEATMAP',
+    payload: { daysCount: 364 }
+  })
 }
-generateHeatmap()
+
+
 </script>
 
 <template>
@@ -87,25 +207,10 @@ generateHeatmap()
         </div>
       </div>
       
-      <!-- 原生 CSS 可视化能力环 -->
+      <!-- ECharts 可视化能力雷达图 -->
       <div class="skill-matrix-section">
         <h3 class="section-title">核心战力雷达 // SKILL_MATRIX</h3>
-        <div class="skill-rings-container">
-          <div class="skill-ring-wrapper" v-for="skill in skills" :key="skill.name">
-            <!-- 纯 CSS conic-gradient 圆环进度 -->
-            <div 
-              class="css-ring" 
-              :style="{ 
-                background: `conic-gradient(${skill.color} ${skill.power}%, var(--color-border-default) 0)`
-              }"
-            >
-              <div class="ring-inner">
-                <span class="ring-value" :style="{ color: skill.color }">{{ skill.power }}<small>%</small></span>
-              </div>
-            </div>
-            <span class="skill-name">{{ skill.name }}</span>
-          </div>
-        </div>
+        <div class="echarts-container" ref="radarChartRef"></div>
       </div>
     </div>
 
@@ -375,60 +480,19 @@ generateHeatmap()
   color: var(--color-fg-subtle);
 }
 
-/* 原生 CSS 甜甜圈图表 */
+/* ECharts 雷达图容器 */
 .skill-matrix-section {
   width: 100%;
-}
-
-.skill-rings-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-  gap: 24px;
-  align-items: start;
-}
-
-.skill-ring-wrapper {
+  flex: 1; /* 让雷达图占据剩余空间自适应 */
+  min-height: 250px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 12px;
 }
 
-.css-ring {
-  position: relative;
-  width: 76px; height: 76px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
-  animation: ring-grow 1s ease-out forwards;
-}
-
-@keyframes ring-grow {
-  from { transform: scale(0.8) translateY(10px); opacity: 0; }
-  to { transform: scale(1) translateY(0); opacity: 1; }
-}
-
-.ring-inner {
-  position: absolute;
-  inset: 8px; /* 这个决定了圆环的粗细 */
-  background: var(--color-canvas-default);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-
-.ring-value {
-  font-family: 'Fira Code', monospace;
-  font-weight: 800;
-  font-size: 18px;
-  display: flex; align-items: baseline;
-}
-.ring-value small { font-size: 10px; font-weight: 600; margin-left: 2px;}
-
-.skill-name {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--color-fg-muted);
+.echarts-container {
+  width: 100%;
+  flex: 1;
+  min-height: 220px;
 }
 
 /* 3D悬浮标签云 */

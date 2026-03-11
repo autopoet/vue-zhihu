@@ -50,6 +50,11 @@ const router = createRouter({
           path: 'profile', // 个人大满贯主页
           name: 'profile',
           component: () => import('../views/profile/UserProfile.vue'),
+        },
+        {
+          path: 'favorites', // 我的收藏夹
+          name: 'favorites',
+          component: () => import('../views/profile/FavoritesList.vue'),
         }
       ]
     },
