@@ -9,8 +9,8 @@ const router = useRouter()
 const route = useRoute()
 
 const tabs = ref([
-  { url: '/home/index/recruit', name: '招募大厅', icon: '🤝', desc: '寻找你的队友' },
-  { url: '/home/index/share', name: '干货分享', icon: '📚', desc: '学习与沉淀' }
+  { url: '/home/index/recruit', name: '招募大厅', desc: '寻找你的队友' },
+  { url: '/home/index/share', name: '干货分享', desc: '学习与沉淀' }
 ])
 
 const activeTab = computed(() => route.path)

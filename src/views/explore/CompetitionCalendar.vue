@@ -283,6 +283,14 @@ const competitions = computed(() => {
       return { ...comp, diffDays: diffDays > 0 ? diffDays : 0, isExpired, urgency }
     })
     .filter(c => selectedLevel.value === "all" || c.level === selectedLevel.value)
+    .sort((a, b) => {
+      // 1. 先按状态排：没过期的在前，过期的在后
+      if (a.isExpired !== b.isExpired) {
+        return a.isExpired ? 1 : -1
+      }
+      // 2. 没过期的：日期早的排在上面（越近越贴在时间线上方）
+      return new Date(a.deadline) - new Date(b.deadline)
+    })
 })
 
 const stats = computed(() => ({
@@ -367,7 +375,7 @@ const goToRecruit = () => {
         :style="{ animationDelay: idx * 0.1 + 's' }"
       >
         <!-- 时间节点 -->
-        <div class="node-dot" :class="{ 'dot-expired': item.isExpired, 'dot-urgent': item.urgency === 'urgent' }">
+        <div class="node-dot" :class="{ 'dot-expired': item.isExpired, 'dot-urgent': item.urgency === 'urgent', 'dot-soon': item.urgency === 'soon' }">
           <div class="dot-ring" v-if="!item.isExpired && item.urgency === 'urgent'"></div>
         </div>
 
@@ -671,6 +679,11 @@ const goToRecruit = () => {
 .node-dot.dot-urgent {
   background: #ef4444;
   box-shadow: 0 0 0 2px #ef4444;
+}
+
+.node-dot.dot-soon {
+  background: #f97316;
+  box-shadow: 0 0 0 2px #f97316;
 }
 
 .dot-ring {
