@@ -9,11 +9,11 @@ const selectedIndex = ref(0)
 const searchInput = ref(null)
 
 const commands = [
-  { id: 'recruit', icon: '🤝', title: '招募大厅', desc: '寻找你的技术战友', path: '/home/index/recruit' },
-  { id: 'share', icon: '📚', title: '干货分享', desc: '学习与沉淀技术', path: '/home/index/share' },
-  { id: 'explore', icon: '🌍', title: '竞赛大厅', desc: '浏览最新比赛信息', path: '/home/explore' },
-  { id: 'profile', icon: '👤', title: '个人中心', desc: '管理你的技能配置', path: '/home/profile' },
-  { id: 'publish', icon: '✏️', title: '快速发布', desc: '发布新的招募或分享', action: 'publish' }
+  { id: 'recruit',  title: '招募大厅', desc: '寻找你的技术战友', path: '/home/index/recruit' },
+  { id: 'share',  title: '干货分享', desc: '学习与沉淀技术', path: '/home/index/share' },
+  { id: 'explore',  title: '竞赛大厅', desc: '浏览最新比赛信息', path: '/home/explore' },
+  { id: 'profile',  title: '个人中心', desc: '管理你的技能配置', path: '/home/profile' },
+  { id: 'publish',  title: '快速发布', desc: '发布新的招募或分享', action: 'publish' }
 ]
 
 const filteredCommands = ref([...commands])
@@ -50,7 +50,7 @@ const handleKeydown = (e) => {
 
 const filterCommands = () => {
   const query = searchQuery.value.toLowerCase()
-  filteredCommands.value = commands.filter(cmd => 
+  filteredCommands.value = commands.filter(cmd =>
     cmd.title.toLowerCase().includes(query) || cmd.desc.toLowerCase().includes(query)
   )
   selectedIndex.value = 0
@@ -89,23 +89,23 @@ onUnmounted(() => {
     <Transition name="palette-fade">
       <div v-if="isVisible" class="palette-overlay" @click.self="closePalette">
         <div class="palette-container">
-          
+
           <div class="search-header">
             <svg class="search-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-            <input 
+            <input
               ref="searchInput"
-              v-model="searchQuery" 
+              v-model="searchQuery"
               @input="filterCommands"
-              class="search-input" 
-              type="text" 
-              placeholder="搜索页面或操作..." 
+              class="search-input"
+              type="text"
+              placeholder="搜索页面或操作..."
             />
             <div class="esc-hint">ESC 退出</div>
           </div>
 
           <div class="cmd-list" v-if="filteredCommands.length > 0">
-            <div 
-              v-for="(cmd, index) in filteredCommands" 
+            <div
+              v-for="(cmd, index) in filteredCommands"
               :key="cmd.id"
               class="cmd-item"
               :class="{ 'is-selected': index === selectedIndex }"
