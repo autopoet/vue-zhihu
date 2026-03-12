@@ -1,7 +1,7 @@
 #  CampusHub
 
 <p align="center">
-  <img src="./src/assets/logo.svg" width="120" height="120" alt="CampusHub Logo" />
+  <img src="./src/assets/logo.png" width="120" height="120" alt="CampusHub Logo" />
 </p>
 
 <p align="center">

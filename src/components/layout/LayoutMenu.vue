@@ -39,18 +39,18 @@ const handleSelect = (key) => {
 <template>
   <div class="menu-container">
     <div class="logo" @click="handleSelect('/home/index')">
+      <!-- 更有意义的 CampusHub 图标：结合了“学院风(六边形)”与“枢纽/连接(节点)”的设计 -->
       <svg class="brand-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20 4L4 12L20 20L36 12L20 4Z" fill="url(#paint0_linear)" fill-opacity="0.8"/>
-        <path d="M4 28L20 36L36 28V16L20 24L4 16V28Z" fill="url(#paint1_linear)"/>
-        <path d="M4 20L20 28L36 20" stroke="var(--color-accent-fg)" stroke-width="2" stroke-linejoin="round"/>
+        <!-- 外层六边形 (代表校园边界) -->
+        <path d="M20 2L35.5885 11V29L20 38L4.41154 29V11L20 2Z" fill="url(#brand_grad)" fill-opacity="0.1" stroke="url(#brand_grad)" stroke-width="2"/>
+        <!-- 内层核心节点 (代表技术枢纽) -->
+        <circle cx="20" cy="20" r="6" fill="url(#brand_grad)"/>
+        <!-- 放射状连接线 -->
+        <path d="M20 14V4M20 36V26M10 26L4.5 29M30 14L35.5 11M10 14L4.5 11M30 26L35.5 29" stroke="url(#brand_grad)" stroke-width="2" stroke-linecap="round"/>
         <defs>
-          <linearGradient id="paint0_linear" x1="20" y1="4" x2="20" y2="20" gradientUnits="userSpaceOnUse">
+          <linearGradient id="brand_grad" x1="4" y1="2" x2="35.5" y2="38" gradientUnits="userSpaceOnUse">
             <stop stop-color="#3B82F6"/>
             <stop offset="1" stop-color="#8B5CF6"/>
-          </linearGradient>
-          <linearGradient id="paint1_linear" x1="20" y1="16" x2="20" y2="36" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#8B5CF6" stop-opacity="0.2"/>
-            <stop offset="1" stop-color="#3B82F6" stop-opacity="0.05"/>
           </linearGradient>
         </defs>
       </svg>
