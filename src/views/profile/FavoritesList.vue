@@ -6,8 +6,8 @@ import FeedCard from '@/components/ui/FeedCard.vue'
 const router = useRouter()
 const isLoading = ref(true)
 
-const goToDetail = (id) => {
-  router.push(`/home/detail/${id}`)
+const goToDetail = (item) => {
+  router.push(`/home/detail/${item.type}/${item.id}`)
 }
 
 // 模拟已收藏的数据
@@ -31,7 +31,7 @@ onMounted(() => {
         commentCount: 12,
       },
       {
-        id: 102,
+        id: 2,
         type: 'share',
         author: '前端架构师阿飞',
         action: '发布了技术长文',
@@ -44,7 +44,7 @@ onMounted(() => {
         isFavorite: true,
       },
       {
-        id: 105,
+        id: 5,
         type: 'share',
         author: '数学建模大佬',
         action: '分享了备考资料',
@@ -93,7 +93,7 @@ const removeFavorite = (item, index) => {
             :author="item.author"
             :action="item.action"
             :time="item.updatedTime"
-            @click="goToDetail(item.id)"
+            @click="goToDetail(item)"
           >
             <template #title>
               <h2 class="feed-title">{{ item.title }}</h2>

@@ -5,12 +5,12 @@ defineOptions({
 
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { ChatDotRound, Message, User, SwitchButton, Sunny, Moon } from '@element-plus/icons-vue'
+import { ChatDotRound, Message, Star, User, SwitchButton, Sunny, Moon } from '@element-plus/icons-vue'
 
 const router = useRouter()
 
 // 消息数量
-const messageCount = ref(5)
+const messageCount = ref(3)
 
 // 下拉菜单显示状态
 const showDropdown = ref(false)
@@ -19,6 +19,7 @@ const showTeamPanel = ref(false)
 
 // 模拟的拉取数据
 const notifications = ref([
+  { id: 5, type: 'system', content: '【重要】你的实名认证已通过，现在可以发布组队信息了', time: '刚才', read: false },
   { id: 1, type: 'apply', content: '用户 [极客阿飞] 申请加入你的队伍《Web3 骇客马拉松》', time: '10分钟前', read: false },
   { id: 2, type: 'system', content: '你的文章《Vue3 渲染原理解析》已被推荐至首页', time: '2小时前', read: false },
   { id: 3, type: 'reply', content: '[小明] 回复了你的评论: "受教了，感谢大佬！"', time: '昨天 14:30', read: true },
@@ -80,7 +81,7 @@ const handleMouseLeave = () => {
         <el-icon class="info-icon"><ChatDotRound /></el-icon>
         <span v-if="messageCount > 0" class="badge">{{ messageCount }}</span>
       </div>
-      <span class="icon-text">组队通知</span>
+      <span class="icon-text">消息通知</span>
 
       <!-- 通知下拉面板 -->
       <transition name="dropdown-fade">
@@ -147,6 +148,14 @@ const handleMouseLeave = () => {
           <div class="panel-footer">进入指挥中心</div>
         </div>
       </transition>
+    </div>
+
+    <!-- 我的收藏 -->
+    <div class="icon-wrapper" @click="router.push('/home/favorites')">
+      <div class="icon-box">
+        <el-icon class="info-icon"><Star /></el-icon>
+      </div>
+      <span class="icon-text">我的收藏</span>
     </div>
 
     <!-- 主题切换图标 -->

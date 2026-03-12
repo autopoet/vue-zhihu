@@ -35,6 +35,22 @@ const mockDb = reactive({
     views: 1256,
     commentCount: 8
   },
+  'share_1': {
+    type: 'share',
+    title: '计算机设计大赛国一经验贴：如何写好一份漂亮的答辩PPT？',
+    author: '架构师老张',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=老张',
+    updatedTime: '5 小时前',
+    isFavorite: false,
+    content: `
+      <p>很多人代码写得好，但是在计设答辩环节吃了大亏。答辩只有不到10分钟，评委根本没时间看你的每一行代码。</p>
+      <h3>核心要素</h3>
+      <p>你需要在一开始就抛出项目解决的市场痛点、商业价值，然后用架构图展示技术难点。本文分享了我们队伍去年拿国一使用的PPT模板与演讲逐字稿。</p>
+    `,
+    tags: ['答辩技巧', 'PPT模板', '干货分享'],
+    views: 1205,
+    commentCount: 120
+  },
   'share_2': {
     type: 'share',
     title: 'Vue3 性能调优指南：从 500ms 到 50ms 的极致首屏加载',
@@ -51,12 +67,28 @@ const mockDb = reactive({
     views: 342,
     commentCount: 42
   },
-  'recruit_3': {
+  'share_5': {
+    type: 'share',
+    title: '国赛备战必备：美赛/国赛历年优秀论文核心排版格式与工具推荐',
+    author: '数学建模大佬',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=建模',
+    updatedTime: '3 天前',
+    isFavorite: true,
+    content: `
+      <p>数学建模比赛，排版占了印象分的很大比重。还在用 Word 痛苦地对齐公式？强烈推荐队伍里的排版手学习 LaTeX（Overleaf）。</p>
+      <h3>资源推荐</h3>
+      <p>我打包了 3 套我们拿过美赛 M 奖和国赛一等奖的现成 LaTeX 模板，直接填内容就能出神作。</p>
+    `,
+    tags: ['LaTeX', '排版工具', '历年真题'],
+    views: 2310,
+    commentCount: 456
+  },
+  'recruit_2': {
     type: 'recruit',
     title: '大创国家级立项，做校园闲置物品流转系统，求移动端开发人员',
     author: '极客实验室',
     avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=极客',
-    updatedTime: '昨天',
+    updatedTime: '昨天 14:30',
     status: '招募中',
     isFavorite: true,
     content: `
@@ -67,6 +99,23 @@ const mockDb = reactive({
     tags: ['大创', '资金充裕', 'APP开发'],
     views: 342,
     commentCount: 23
+  },
+  'recruit_3': {
+    type: 'recruit',
+    title: 'Kaggle 数据挖掘竞赛：信用卡欺诈检测，求求带带！',
+    author: '算法练习生',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=算法',
+    updatedTime: '昨天 09:15',
+    status: '招募中',
+    isFavorite: true,
+    content: `
+      <p>本人目前大三，熟悉基础的机器学习算法（XGBoost, Random Forest），想找几个小伙伴一起打这周末结束的 Kaggle 新手赛。</p>
+      <h3>我们的目标</h3>
+      <p>不求拿到名次，但求完整走一遍特征工程、模型搭建和调参的流程。如果你对数据敏感，欢迎加入！</p>
+    `,
+    tags: ['Python', 'Pandas', 'Sklearn'],
+    views: 890,
+    commentCount: 12
   },
   'recruit_5': {
     type: 'recruit',
