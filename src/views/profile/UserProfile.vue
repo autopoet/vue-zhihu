@@ -8,7 +8,7 @@ import { CanvasRenderer } from 'echarts/renderers';
 echarts.use([TitleComponent, TooltipComponent, RadarChart, CanvasRenderer]);
 
 const userInfo = ref({
-  name: '前端小牛',
+  name: 'autopoet',
   role: '前端架构师 / 独立极客',
   bio: '保持对技术的热爱，持续探索 Web 渲染边界与次世代交互设计。',
   followers: 128,
@@ -49,7 +49,7 @@ let worker = null
 
 onMounted(() => {
   generateHeatmapViaWorker()
-  
+
   // 初始化 ECharts
   if (radarChartRef.value) {
     radarChartInstance = echarts.init(radarChartRef.value)
@@ -60,7 +60,7 @@ onMounted(() => {
       radarChartInstance.resize()
     })
     resizeObserver.observe(radarChartRef.value)
-    
+
     // 监听 HTML data-theme 属性变化
     const themeObserver = new MutationObserver(() => {
       renderRadarChart()
@@ -182,23 +182,23 @@ const generateHeatmapViaWorker = () => {
 
 <template>
   <div class="profile-container">
-    
+
     <!-- 顶部核心版块：极客档案卡 -->
     <div class="profile-header modern-panel">
       <!-- 极光背景点缀 -->
       <div class="panel-glow"></div>
-      
+
       <div class="user-info-section">
         <div class="avatar-box">
           <div class="avatar-ring"></div>
           <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=牛" alt="Avatar" class="avatar-img" />
         </div>
-        
+
         <div class="info-details">
           <h1 class="user-name">{{ userInfo.name }}</h1>
           <p class="user-role"><span class="terminal-prompt">></span> {{ userInfo.role }} <span class="cursor-blink">_</span></p>
           <p class="user-bio">{{ userInfo.bio }}</p>
-          
+
           <div class="user-stats">
             <div class="stat-item"><span class="stat-num">{{ userInfo.likes }}</span> <span class="stat-label">获赞</span></div>
             <div class="stat-item"><span class="stat-num">{{ userInfo.followers }}</span> <span class="stat-label">粉丝</span></div>
@@ -206,7 +206,7 @@ const generateHeatmapViaWorker = () => {
           </div>
         </div>
       </div>
-      
+
       <!-- ECharts 可视化能力雷达图 -->
       <div class="skill-matrix-section">
         <h3 class="section-title">核心战力雷达 // SKILL_MATRIX</h3>
@@ -218,9 +218,9 @@ const generateHeatmapViaWorker = () => {
     <div class="tech-stack modern-panel">
       <h3 class="section-title">技术栈域图 // TECH_STACK</h3>
       <div class="floating-tags-cloud">
-        <div 
-          class="float-tag" 
-          v-for="(tag, index) in stackTags" 
+        <div
+          class="float-tag"
+          v-for="(tag, index) in stackTags"
           :key="tag"
           :style="{ animationDelay: `${index * 0.1}s` }"
         >
@@ -236,8 +236,8 @@ const generateHeatmapViaWorker = () => {
       <div class="heatmap-container">
         <div class="heatmap-scroll">
           <div class="heatmap-grid">
-            <div 
-              v-for="day in heatmapDays" 
+            <div
+              v-for="day in heatmapDays"
               :key="day.id"
               class="heatmap-cell"
               :data-level="day.level"
@@ -260,15 +260,15 @@ const generateHeatmapViaWorker = () => {
     <!-- 底部版块：动态交互历史流 -->
     <div class="activity-section modern-panel">
       <div class="tab-header">
-        <button 
-          class="geek-tab" 
+        <button
+          class="geek-tab"
           :class="{ 'is-active': activeTab === 'posts' }"
           @click="activeTab = 'posts'"
         >
           发起的集结 ({{ myPosts.length }})
         </button>
-        <button 
-          class="geek-tab" 
+        <button
+          class="geek-tab"
           :class="{ 'is-active': activeTab === 'joined' }"
           @click="activeTab = 'joined'"
         >
@@ -279,11 +279,11 @@ const generateHeatmapViaWorker = () => {
       <div class="tab-body">
         <transition name="list-fade" mode="out-in">
           <!-- 发布的帖子 -->
-          <TransitionGroup 
-            v-if="activeTab === 'posts'" 
-            name="stagger-list" 
-            tag="ul" 
-            class="activity-list" 
+          <TransitionGroup
+            v-if="activeTab === 'posts'"
+            name="stagger-list"
+            tag="ul"
+            class="activity-list"
             key="posts"
           >
             <li v-for="post in myPosts" :key="post.id" class="activity-item hover-effect">
@@ -301,13 +301,13 @@ const generateHeatmapViaWorker = () => {
               <p>暂无发起的组队信号</p>
             </div>
           </TransitionGroup>
-          
+
           <!-- 参与的队伍 -->
-          <TransitionGroup 
-            v-else 
-            name="stagger-list" 
-            tag="ul" 
-            class="activity-list" 
+          <TransitionGroup
+            v-else
+            name="stagger-list"
+            tag="ul"
+            class="activity-list"
             key="joined"
           >
             <li v-for="team in myJoined" :key="team.id" class="activity-item hover-effect">
