@@ -28,26 +28,26 @@
 
 **CampusHub** 的诞生就是为了打破这种僵局。我希望打造一个**属于大学生的数字化、极客化看板**，让每一位学子通过数据亮出实力，通过平台精准集结，让竞赛组队不再是“抽盲盒”，而是一场精准的技术碰撞。
 
-## 项目核心亮点 (Technical Excellence)
+## 核心亮点
 
-- **进化的 Bento 仪表盘**：采用目前前沿的便签盒式设计，将原本沉重的图表转化为轻量化的原生 CSS 组件。这不仅是视觉的升级，更解决了第三方可视化库对页面首屏加载的性能拖累。
-- **真正的多线程计算**：不仅仅渲染热力图。我利用 **Web Workers** 建立了一个独立的数据哨兵，将年度活跃矩阵的复杂聚类和处理移出 UI 线程。结果是明显的：即使在处理上万次逻辑判断时，页面滑动依然如丝般顺滑。
-- **全局主题感知引擎**：这不只是简单的亮暗切换。系统内置了基于 `localStorage` 的状态持久化与系统级颜色偏好监听。通过 CSS 原生变量驱动的 UI Token 体系，确保了在切换时的零延迟过渡。
-- **极客叙事系统**：利用“成长内核”时间轴与“荣誉勋章墙”，将原本冰冷的个人资料页面转化为动态的“技术进化史”。这种叙事性的设计能更有效地向 potential teammates 或面试官展示你的深度。
+- **进化的 Bento 仪表盘**：采用前沿的 Bento Layout 设计方案，将海量信息模块化，利用原生 CSS 实现轻量化交互，从根本上杜绝了第三方组件堆砌带来的首屏性能压力。
+- **Web Worker 数据守候**：在复杂的竞赛热力图聚类运算中，建立独立的 **Web Worker** 数据哨兵，将繁重逻辑从 UI 主线程剥离。即便在处理大量年度活跃数据时，依然能保持丝滑的交互反馈。
+- **全局动态感知引擎**：实现了一套基于本地持久化状态的主题引擎。通过 CSS 变量驱动的 UI Token 体系，支持毫秒级的亮暗切换过渡，并能自动感知操作系统的颜色偏好。
+- **叙事化极客档案**：创新性地设计了“成长内核”时间轴与“荣誉勋章墙”，将传统的简历式展示转化为动态的“技术进化史”，极大增强了个人实力展示的叙事性与感染力。
 
 ## 技术矩阵
 
 - **核心**: Vue 3.5+ (Composition API) & `<script setup>`
-- **状态**: Pinia (模块化状态流域)
-- **构建**: Vite 6.x (极致的 HMR 体验)
-- **离线**: JavaScript Web Workers API
-- **设计**: Glassmorphism 2.0 & Bento Layout
+- **状态**: Pinia (模块化全局状态流域)
+- **构建**: Vite 6.x (极致的 HMR 模块热加载体验)
+- **底层**: JavaScript Web Workers API & CSS View Transitions
+- **设计**: Glassmorphism 2.0 & Bento Design System
 
-## 快速启动
+## 立即体验
 
 ```bash
 # 获取集结号
-git clone https://github.com/your-username/campushub.git
+git clone https://github.com/autopoet/campushub.git
 
 # 装备依赖
 pnpm install
@@ -55,6 +55,8 @@ pnpm install
 # 核心同步
 pnpm dev
 ```
+
+---
 
 <p align="center">
   保持热爱，持续进化。
