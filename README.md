@@ -1,95 +1,83 @@
-#  CampusHub
+# CampusHub
 
 <p align="center">
-  <img src="./src/assets/logo.svg" width="120" height="120" alt="CampusHub Logo" />
+  <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Oliver&glassesProbability=100" width="120" height="120" alt="CampusHub Logo" style="border-radius: 50%; border: 4px solid #646cff;" />
 </p>
 
 <p align="center">
-  <strong>面向高校学子的竞赛组队与经验分享一站式平台</strong>
+  <strong>面向高校学子的竞赛组队与经验分享一站式极客平台</strong>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Vue-3.x-42b883?style=flat-square&logo=vue.js" alt="Vue 3" />
-  <img src="https://img.shields.io/badge/Vite-6.x-646cff?style=flat-square&logo=vite" alt="Vite" />
-  <img src="https://img.shields.io/badge/Pinia-3.x-ffe467?style=flat-square&logo=pinia" alt="Pinia" />
-  <img src="https://img.shields.io/badge/Element_Plus-2.x-409eff?style=flat-square&logo=element-plus" alt="Element Plus" />
-  <img src="https://img.shields.io/badge/License-MIT-blue?style=flat-square" alt="License" />
+  <img src="https://img.shields.io/badge/Vue-3.5+-42b883?style=for-the-badge&logo=vue.js" alt="Vue 3" />
+  <img src="https://img.shields.io/badge/Vite-6.x-646cff?style=for-the-badge&logo=vite" alt="Vite" />
+  <img src="https://img.shields.io/badge/Pinia-Latest-ffe467?style=for-the-badge&logo=pinia" alt="Pinia" />
+  <img src="https://img.shields.io/badge/Tailwind-UI-38bdf8?style=for-the-badge&logo=tailwindcss" alt="Tailwind" />
 </p>
 
 ---
 
-##  项目简介
+## 项目愿景
 
-**CampusHub** 是一个专注于高校学生**竞赛社交**的极客平台。旨在打破校园内的“信息孤岛”，通过连接跨学科的优秀学子，解决竞赛组队难、经验沉淀少、信息不对称等痛点。无论是寻找ACM的队友，还是分享大创的实战经验，CampusHub 都是你的最佳选择。
+**CampusHub** 不仅仅是一个简单的网页，它是一个专为高校极客打造的**数字化指挥中心**。我们旨在通过极致的交互设计与底层性能优化，打破校园内的技术信息孤岛，连接每一个有志于挑战竞赛、打磨产品的灵魂。
 
-##  核心特性
+## 核心黑科技 (Technical Highlights)
 
-- **竞赛大厅**：实时同步各类校级、省市级及国家级竞赛信息，支持日历视图精准掌握关键时间节点。
-- **招募大厅**：智能匹配算法（开发中），支持按技术栈、获奖经历发布组队集结信号。
-- **干货分享**：极致的 Markdown 阅读体验，沉淀金奖选手的实战笔记与技术方案。
-- **极客档案**：多维度能力雷达图，通过 GitHub 风格的热力图记录你的竞赛活跃矩阵。
-- **极致动效**：原生支持全系统暗黑模式平滑切换，玻璃拟态 UI 设计，极致的视觉交互体验。
+- **玻璃拟态 UI (Glassmorphism & Bento Design)**：全站采用深层次的玻璃拟态设计，个人中心引入创新的 **Bento Grid**（便签盒布局）看板，告别传统的生硬列表，提供沉浸式的数据可视化体验。
+- **Web Worker 性能怪兽**：针对耗时的密集型数据计算（如活跃热力矩阵渲染），通过独立的 **Web Worker** 线程异步处理，确保 UI 渲染始终维持在 60FPS。
+- **极客进化论 (Evolution System)**：创新的“个人身份”成长系统。采用 **Notionists** 风格的简约视觉形象，配合“成长内核”时间轴与“荣誉勋章墙”，记录每一位极客的进化轨迹。
+- **响应式暗黑模式**：内置精准的主题感知引擎，通过 `MutationObserver` 监控系统/用户偏好，实现无刷新、无闪烁的全局主题丝滑切换。
+- **极致轻量化**：摒弃繁重的第三方图表库，采用**纯 CSS 驱动**的动态进度条与数据看板，大幅减少首屏加载体积。
 
-##  技术架构
+## 技术栈矩阵
 
-项目基于现代前端工程化最佳实践构建：
-
-| 维度 | 技术选型 |
+| 维度 | 技术方案 |
 | --- | --- |
-| **基础框架** | [Vue 3](https://vuejs.org/) (Composition API) |
-| **构建工具** | [Vite](https://vitejs.dev/) |
-| **状态管理** | [Pinia](https://pinia.vuejs.org/) |
-| **UI 组件库** | [Element Plus](https://element-plus.org/) |
-| **数据可视化** | [ECharts 6](https://echarts.apache.org/) |
-| **多线程处理** | Web Workers (Offscreen Computing) |
-| **样式方案** | Modern CSS + CSS Variables (Design Tokens) |
+| **核心框架** | Vue 3.5+ (Composition API + `<script setup>`) |
+| **状态中心** | Pinia (模块化持久化存储) |
+| **布局引擎** | Vite 6.x + 响应式 Grid/Flex 现代布局 |
+| **动效方案** | CSS Cubic-Bezier 贝塞尔曲线 + Transition API |
+| **离线计算** | JavaScript Web Workers API |
+| **设计语言** | Glassmorphism 2.0 + Design Tokens |
 
-##  项目预览
+## 快速启动
 
-*(此处建议上传项目运行截图，如首页、个人档案、竞赛列表等)*
+### 1. 环境准备
 
-##  快速开始
+- **Node.js**: >= 20.x
+- **Package Manager**: pnpm (推荐)
 
-### 环境依赖
-- Node.js >= 20.x
-- pnpm / npm / yarn
+### 2. 获取代码并安装
 
-### 安装
 ```bash
 git clone https://github.com/your-username/campushub.git
 cd campushub
-npm install
+pnpm install
 ```
 
-### 启动
+### 3. 开发环境运行
+
 ```bash
-npm run dev
+pnpm dev
 ```
 
-### 打包
-```bash
-npm run build
-```
-
-##  项目结构
+## 项目模块概览
 
 ```text
 src/
-├── assets/         # 静态资源与全局样式 Token
-├── components/     # 高复用业务组件
-│   ├── layout/     # 全局布局容器
-│   └── ui/         # 通用交互组件（如 Cmd+K 搜索框）
-├── router/         # 嵌套路由与导航守卫
-├── stores/         # 基于 Pinia 的状态管理
-├── views/          # 页面级组件
-├── workers/        # 耗时任务独立线程
-└── main.js         # 项目入口
+├── components/
+│   ├── layout/     # 全局 MainLayout 容器与主题感知引擎
+│   └── ui/         # GeekToast 全局通知、骨架屏、Bento 卡片
+├── views/
+│   ├── profile/    # 极客档案中心 (雷达废除，Bento 接管)
+│   ├── recruit/    # 招募大厅 (流式渲染列表)
+│   └── detail/     # 内容详情 (类型驱动路由 & ID 映射缓存)
+├── workers/        # 离线数据处理器 (CPU Bound Task)
+└── stores/         # 用户状态与持久化配置
 ```
 
-##  贡献指南
+---
 
-我们欢迎任何形式的贡献！无论是提交 Bug 反馈，还是提供新的 Feature 建议。
+## 开源协议
 
-##  开源协议
-
-本项目基于 [MIT](LICENSE) 协议开源。
+MIT License. Designed with ❤️ for the Geek Community.
