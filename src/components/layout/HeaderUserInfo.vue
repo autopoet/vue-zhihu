@@ -170,7 +170,7 @@ const handleMouseLeave = () => {
     <!-- 个人头像和下拉菜单 -->
     <div class="avatar-container" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
       <div class="avatar-wrapper">
-        <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Oliver&glassesProbability=100" alt="头像" class="avatar" />
+        <img src="/me.jpg" alt="头像" class="avatar" />
       </div>
 
       <!-- 下拉菜单 -->

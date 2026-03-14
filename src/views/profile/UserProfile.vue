@@ -9,7 +9,7 @@ const userInfo = ref({
   followers: 128,
   following: 56,
   likes: 1024,
-  avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Oliver&glassesProbability=100'
+  avatar: '/me.jpg'
 })
 
 const skills = ref([
