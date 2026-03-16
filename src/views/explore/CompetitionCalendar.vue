@@ -80,11 +80,11 @@ const rawCompetitions = [
   },
   {
     id: 7,
-    name: "西安高校极客马拉松 (Xian Hackathon)",
+    name: "西安高校开发者马拉松 (Xian Hackathon)",
     level: "省级",
     levelColor: "#10b981",
     deadline: "2026-03-15",
-    desc: "汇聚西安交大、西工大等名校极客。48小时不间断开发，挑战西安智慧城市建设痛点。",
+    desc: "汇聚西安交大、西工大等名校开发者。48小时不间断开发，挑战西安智慧城市建设痛点。",
     tags: ["黑客松", "城市建设", "西安名校"],
     reward: "¥5,000 + 创业入驻",
     teamSize: "3-5人",
@@ -320,7 +320,7 @@ const goToRecruit = () => {
             <span>赛事季 · 2026 春季</span>
           </div>
           <h1 class="page-title">竞赛大厅</h1>
-          <p class="page-sub">把握每一个技术舞台，找到你的极客战友</p>
+          <p class="page-sub">把握每一个技术舞台，找到志同道合的队友</p>
         </div>
 
         <!-- 实时数据看板 -->

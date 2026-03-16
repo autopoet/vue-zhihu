@@ -37,7 +37,7 @@ const onRegister = () => {
 
     <div class="login-header">
       <h1 class="logo-text">CampusHub</h1>
-      <p class="logo-subtitle">连接校园精英 开启极客旅程</p>
+      <p class="logo-subtitle">连接校园精英 开启协作之旅</p>
     </div>
 
     <div class="login-container">

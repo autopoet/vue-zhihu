@@ -29,8 +29,8 @@ const handleTabClick = (url) => {
           <span class="dot"></span>
           <span>竞赛季进行中 · 2026 春季</span>
         </div>
-        <h1 class="hero-title">在这里找到你的<br/><span class="gradient-text">极客战友</span></h1>
-        <p class="hero-sub">CampusHub 连接校园技术精英，让每一次比赛都有靠谱的队友陪你冲刺。</p>
+        <h1 class="hero-title">在这里找到你的<br/><span class="gradient-text">志同道合的队友</span></h1>
+        <p class="hero-sub">CampusHub 连接校内技术人才，让每一次比赛都有靠谱的队友陪你冲刺。</p>
       </div>
       <!-- 背景装饰粒子/网格 -->
       <div class="hero-grid"></div>
@@ -215,10 +215,6 @@ const handleTabClick = (url) => {
 /* Content body - 不设固定height，让内容自然撑开 */
 .content-col {
   min-width: 0;
-}
-
-.content-body {
-  /* 自然流动 */
 }
 
 /* 侧边栏粘性定位 */

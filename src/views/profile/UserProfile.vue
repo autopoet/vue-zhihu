@@ -4,8 +4,8 @@ import { ref, computed, onMounted, onUnmounted } from 'vue'
 
 const userInfo = ref({
   name: '前端小牛',
-  role: '前端架构师 / 独立极客',
-  bio: '保持对技术的热爱，持续探索 Web 渲染边界与次世代交互设计。',
+  role: '前端架构师 / 开发者',
+  bio: '对技术充满热情，目前专注于 Vue3 生态与前端性能优化。',
   followers: 128,
   following: 56,
   likes: 1024,
@@ -39,10 +39,10 @@ onUnmounted(() => {
 // 核心战力指标 (用于 Bento 看板)
 const geekMetrics = computed(() => [
   ...skills.value.map(s => ({ label: s.name, value: s.power, color: s.color })),
-  { label: '架构思维', value: 94, color: 'var(--color-accent-fg)' }
+  { label: '工程化', value: 94, color: 'var(--color-accent-fg)' }
 ])
 
-// ============= 极客进化论 (新功能) =============
+// ============= 成长历程 =============
 const honors = ref([
   { id: 1, name: 'Vditor Master', icon: '📝', desc: '掌握 Markdown 深度集成', level: 'Gold' },
   { id: 2, name: 'ECharts Artist', icon: '📊', desc: '解锁雷达图可视化技能', level: 'Silver' },
@@ -100,7 +100,7 @@ const generateHeatmapViaWorker = () => {
 
         <div class="info-details">
           <h1 class="user-name">{{ userInfo.name }}</h1>
-          <p class="user-role"><span class="terminal-prompt">></span> {{ userInfo.role }} <span class="cursor-blink">_</span></p>
+          <p class="user-role">{{ userInfo.role }}</p>
           <p class="user-bio">{{ userInfo.bio }}</p>
 
           <div class="user-stats">
@@ -116,7 +116,7 @@ const generateHeatmapViaWorker = () => {
         <div class="dashboard-grid">
           <!-- 战力概览卡 -->
           <div class="bento-card main-stat">
-            <h4 class="bento-title">综合战力 // TOTAL_POWER</h4>
+            <h4 class="bento-title">综合评分 // PERFORMANCE</h4>
             <div class="power-display">
               <span class="power-value">91</span>
               <span class="power-unit">RANK.S</span>
@@ -200,14 +200,14 @@ const generateHeatmapViaWorker = () => {
           :class="{ 'is-active': activeTab === 'posts' }"
           @click="activeTab = 'posts'"
         >
-          荣誉勋章 // HONORS ({{ honors.length }})
+          获得勋章 // HONORS ({{ honors.length }})
         </button>
         <button
           class="geek-tab"
           :class="{ 'is-active': activeTab === 'joined' }"
           @click="activeTab = 'joined'"
         >
-          成长内核 // GROWTH_KERNEL ({{ growthTracks.length }})
+          开发记录 // PROGRESS ({{ growthTracks.length }})
         </button>
       </div>
 

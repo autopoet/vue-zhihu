@@ -120,7 +120,7 @@ const handleSubmit = () => {
           </button>
           
           <h2 class="modal-title">创作中心</h2>
-          <p class="modal-subtitle">分享你的知识，或者寻找并肩作战的极客战友。</p>
+          <p class="modal-subtitle">分享你的知识，或者寻找志同道合的队友。</p>
           
           <!-- 类型切换 -->
           <div class="type-switch">
@@ -140,7 +140,7 @@ const handleSubmit = () => {
             </button>
           </div>
 
-          <!-- 极客表单 -->
+          <!-- 表单内容 -->
           <div class="form-container">
             <div class="form-floating">
               <input 
@@ -151,7 +151,7 @@ const handleSubmit = () => {
                 placeholder=" "
                 maxlength="50"
               />
-              <label for="post-title" class="floating-label">输入极具吸引力的标题</label>
+              <label for="post-title" class="floating-label">输入标题</label>
             </div>
             
             <!-- Vditor 渲染区 -->

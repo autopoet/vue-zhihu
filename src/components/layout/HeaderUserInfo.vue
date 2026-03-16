@@ -20,7 +20,7 @@ const showTeamPanel = ref(false)
 // 模拟的拉取数据
 const notifications = ref([
   { id: 5, type: 'system', content: '【重要】你的实名认证已通过，现在可以发布组队信息了', time: '刚才', read: false },
-  { id: 1, type: 'apply', content: '用户 [极客阿飞] 申请加入你的队伍《Web3 骇客马拉松》', time: '10分钟前', read: false },
+  { id: 1, type: 'apply', content: '用户 [阿飞] 申请加入你的队伍《Web3 骇客马拉松》', time: '10分钟前', read: false },
   { id: 2, type: 'system', content: '你的文章《Vue3 渲染原理解析》已被推荐至首页', time: '2小时前', read: false },
   { id: 3, type: 'reply', content: '[小明] 回复了你的评论: "受教了，感谢大佬！"', time: '昨天 14:30', read: true },
   { id: 4, type: 'apply', content: '你申请加入的《基于 AI 的代码审查工具》已被队长同意', time: '3天前', read: true }
@@ -125,7 +125,7 @@ const handleMouseLeave = () => {
       <transition name="dropdown-fade">
         <div class="rich-dropdown-panel team-panel" v-show="showTeamPanel">
           <div class="panel-header">
-            <span class="panel-title">我的阵列</span>
+            <span class="panel-title">我的队伍</span>
             <span class="panel-action" @click="router.push('/home/recruit')">寻找新队伍</span>
           </div>
           <div class="panel-body">
@@ -145,7 +145,7 @@ const handleMouseLeave = () => {
               尚未加入任何队伍
             </div>
           </div>
-          <div class="panel-footer">进入指挥中心</div>
+          <div class="panel-footer" @click="handleProfile">查看个人主页</div>
         </div>
       </transition>
     </div>
