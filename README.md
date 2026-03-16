@@ -2,7 +2,7 @@
   <img src="./src/assets/logo.svg" width="128" height="128" alt="CampusHub Logo" />
 </p>
 
-<h1 align="center">CampusHub</h1>
+<h1 align="center">校赛通 — 高校极客竞赛组队与协作平台</h1>
 
 <p align="center">
   <strong>面向高校学子的竞赛组队与经验分享一站式极客平台</strong>
