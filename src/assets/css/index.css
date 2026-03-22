@@ -1,62 +1,30 @@
-﻿/* CampusHub - Global Stylesheet Entry Point */
+/* CampusHub - Global Stylesheet Entry Point (Anime Glassmorphism) */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Quicksand:wght@500;700&display=swap');
+
+/* Dynamic Animated Mesh Gradient */
+@keyframes anime-mesh-gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
 /* 1. Design Tokens */
 :root {
-  --color-fg-default: #1f2328;
-  --color-fg-muted: #656d76;
-  --color-fg-subtle: #8c959f;
-  --color-canvas-default: #ffffff;
-  --color-canvas-subtle: #e8ecf0;
-  --color-canvas-overlay: #ffffff;
-  --color-border-default: #d0d7de;
-  --color-border-muted: #d0d7de;
-  --color-border-subtle: rgba(208,215,222,0.5);
-  --color-accent-fg: #0969da;
-  --color-accent-subtle: rgba(9,105,218,0.08);
-  --color-success-fg: #1a7f37;
-  --color-success-subtle: #dafbe1;
-  --color-success-bg: #2da44e;
-  --color-attention-fg: #9a6700;
-  --color-attention-subtle: #fff8c5;
-  --color-attention-muted: rgba(212,167,44,0.4);
-  --color-danger-fg: #cf222e;
-  --color-danger-subtle: #fff0ee;
-  --color-btn-primary-bg: #2da44e;
-  --color-btn-primary-hover-bg: #2c974b;
-  --color-btn-primary-border: rgba(27,31,36,0.15);
-  --color-btn-bg: #f6f8fa;
-  --color-btn-hover-bg: #f3f4f6;
-  --color-shadow: rgba(140,149,159,0.2);
-  --header-bg: rgba(255,255,255,0.92);
+  /* Anime Overrides */
+  --el-color-primary: #ff7eb3; /* Sakura Pink */
+  --el-color-primary-light-3: #ff9cca;
+  --el-color-primary-light-5: #ffbadd;
+  --el-color-primary-light-7: #ffd9ee;
+  --el-color-primary-light-9: #fff0f7;
+  --el-color-primary-dark-2: #cc658f;
+  
+  --color-fg-default: #4a4a4a; 
+  --color-canvas-subtle: transparent;
 }
 
 [data-theme='dark'] {
-  --color-fg-default: #e6edf3;
-  --color-fg-muted: #7d8590;
-  --color-fg-subtle: #6e7681;
-  --color-canvas-default: #161b22;
-  --color-canvas-subtle: #0d1117;
-  --color-canvas-overlay: #1c2128;
-  --color-border-default: #30363d;
-  --color-border-muted: #21262d;
-  --color-border-subtle: rgba(48,54,61,0.5);
-  --color-accent-fg: #2f81f7;
-  --color-accent-subtle: rgba(47,129,247,0.1);
-  --color-success-fg: #3fb950;
-  --color-success-subtle: rgba(46,160,67,0.15);
-  --color-success-bg: #238636;
-  --color-attention-fg: #d4a72c;
-  --color-attention-subtle: rgba(212,167,44,0.15);
-  --color-attention-muted: rgba(212,167,44,0.4);
-  --color-danger-fg: #f85149;
-  --color-danger-subtle: rgba(248,81,73,0.1);
-  --color-btn-primary-bg: #238636;
-  --color-btn-primary-hover-bg: #2ea043;
-  --color-btn-primary-border: rgba(240,246,252,0.1);
-  --color-btn-bg: #21262d;
-  --color-btn-hover-bg: #30363d;
-  --color-shadow: rgba(0,0,0,0.5);
-  --header-bg: rgba(13,17,23,0.92);
+  --color-fg-default: #eeeeee;
+  --el-color-primary: #ff7eb3;
 }
 
 /* 2. Reset */
@@ -71,12 +39,28 @@ html { font-size: 14px; }
 body {
   min-height: 100vh;
   color: var(--color-fg-default);
-  background-color: var(--color-canvas-subtle);
+  
+  /* Vibrant Mesh Gradient Background */
+  background: linear-gradient(-45deg, #ff7eb3, #7eb3ff, #ffb3f0, #ffe6f0);
+  background-size: 400% 400%;
+  animation: anime-mesh-gradient 15s ease infinite;
+  background-attachment: fixed;
+  
   line-height: 1.5;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, sans-serif;
+  font-family: "Nunito", "Quicksand", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+[data-theme='dark'] body {
+  background: linear-gradient(-45deg, #1a0b16, #0b1526, #2d1127, #0f0a1c);
+  background-size: 400% 400%;
+  animation: anime-mesh-gradient 15s ease infinite;
+}
+
+h1, h2, h3, h4, h5, h6, .el-dialog__title {
+  font-family: "Quicksand", "Nunito", sans-serif;
+  font-weight: 700;
 }
 
 /* Override Element Plus reset */
@@ -91,12 +75,65 @@ body {
   width: 100%;
 }
 
-a { color: var(--color-accent-fg); text-decoration: none; }
-a:hover { text-decoration: underline; }
-button { font-family: inherit; cursor: pointer; }
-input, textarea { font-family: inherit; font-size: inherit; }
+a { color: var(--el-color-primary); text-decoration: none; transition: all 0.3s ease; }
+a:hover { filter: drop-shadow(0 0 5px var(--el-color-primary)); }
 ul, ol { list-style: none; }
 img { max-width: 100%; display: block; }
+
+/* Bubbly Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent; 
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 126, 179, 0.4); 
+  border-radius: 20px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--el-color-primary); 
+}
+
+/* Glassmorphism Element Plus Cards */
+.el-card {
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1) !important;
+  background: rgba(255, 255, 255, 0.35) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-radius: 20px !important;
+  transition: transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28), box-shadow 0.4s ease, border-color 0.4s ease !important;
+}
+
+.el-card:hover {
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 0 15px 45px rgba(255, 126, 179, 0.3) !important;
+  border-color: rgba(255, 126, 179, 0.5) !important;
+}
+
+[data-theme='dark'] .el-card {
+  background: rgba(20, 20, 20, 0.4) !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5) !important;
+}
+[data-theme='dark'] .el-card:hover {
+  box-shadow: 0 15px 45px rgba(126, 179, 255, 0.3) !important;
+  border-color: rgba(126, 179, 255, 0.5) !important;
+}
+
+/* Glassmorphism Element Plus Tables */
+.el-table {
+  background: transparent !important;
+  --el-table-bg-color: transparent;
+  --el-table-tr-bg-color: transparent;
+  --el-table-header-bg-color: transparent;
+  --el-table-border-color: rgba(255,255,255,0.4);
+}
+.el-table th.el-table__cell, .el-table td.el-table__cell {
+  background: transparent !important;
+}
 
 .text-ellipsis {
   overflow: hidden;
