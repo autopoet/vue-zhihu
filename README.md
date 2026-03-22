@@ -2,7 +2,7 @@
   <img src="./src/assets/logo.svg" width="128" height="128" alt="CampusHub Logo" />
 </p>
 
-<h1 align="center">CampusHub 校园竞赛组队平台</h1>
+<h1 align="center">CampusHub 竞赛组队平台</h1>
 
 <p align="center">
   <strong>基于 Vue 3 构建的竞赛组队与协作平台</strong>
