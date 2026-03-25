@@ -9,7 +9,7 @@ const userInfo = ref({
   followers: 128,
   following: 56,
   likes: 1024,
-  avatar: '/me.jpg'
+  avatar: '/avatar.jpg'
 })
 
 const skills = ref([

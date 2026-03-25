@@ -20,7 +20,7 @@ const mockDb = reactive({
     type: 'recruit',
     title: '蓝桥杯 Web 应用开发国赛组队，缺一后端！',
     author: '前端小牛',
-    avatar: '/me.jpg',
+    avatar: '/avatar.jpg',
     updatedTime: '2 小时前',
     status: '招募中',
     isFavorite: false,

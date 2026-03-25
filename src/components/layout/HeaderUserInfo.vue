@@ -170,7 +170,7 @@ const handleMouseLeave = () => {
     <!-- 个人头像和下拉菜单 -->
     <div class="avatar-container" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
       <div class="avatar-wrapper">
-        <img src="/me.jpg" alt="头像" class="avatar" />
+        <img src="/avatar.jpg" alt="头像" class="avatar" />
       </div>
 
       <!-- 下拉菜单 -->
