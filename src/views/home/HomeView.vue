@@ -1,9 +1,10 @@
 <script setup>
 defineOptions({ name: 'HomeView' })
 
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import HomeSidebar from './HomeSidebar.vue'
+import { useMockStore } from '@/stores/mockStore'
 
 const router = useRouter()
 const route = useRoute()
@@ -18,6 +19,16 @@ const activeTab = computed(() => route.path)
 const handleTabClick = (url) => {
   router.push(url)
 }
+
+// Load initial mock data for home page
+const store = useMockStore()
+onMounted(async () => {
+  await Promise.all([
+    store.loadPosts(),
+    store.loadProducts(),
+    store.loadCompetitions()
+  ])
+})
 </script>
 
 <template>

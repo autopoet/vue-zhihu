@@ -17,11 +17,13 @@ export const useMockStore = defineStore('mock', {
     categories: [],
     tags: [],
     settings: {},
+    recruitments: [], // 新增招募数据
     // 分页信息
     pagination: {
       posts: { page: 1, pageSize: 20, total: 0 },
       competitions: { page: 1, pageSize: 10, total: 0 },
       products: { page: 1, pageSize: 20, total: 0 },
+      recruitments: { page: 1, pageSize: 20, total: 0 },
     },
     loading: {},
     error: {},
@@ -51,6 +53,12 @@ export const useMockStore = defineStore('mock', {
     },
     loadCompetitions(page = 1, pageSize = 10) { return this._load('competitions', 'competitions', { page, pageSize }); },
     loadProducts(page = 1, pageSize = 20) { return this._load('products', 'products', { page, pageSize }); },
+    loadRecruitments(page = 1, pageSize = 20) { return this._load('recruit', 'recruitments', { page, pageSize }); },
+    async loadPostById(id) {
+      // 确保 posts 已加载
+      if (!this.posts.length) await this.loadPosts();
+      return this.posts.find(p => p.id === id);
+    },
     async loadNotifications(userId) {
       await this._load('notifications', 'notifications');
       this.notifications = this.notifications.filter(n => n.user_id === userId);

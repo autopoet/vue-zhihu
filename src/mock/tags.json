@@ -1,0 +1,5 @@
+[
+  { "id": 1, "name": "Vue", "type_id": "tags" },
+  { "id": 2, "name": "AI", "type_id": "tags" },
+  { "id": 3, "name": "竞赛", "type_id": "tags" }
+]
