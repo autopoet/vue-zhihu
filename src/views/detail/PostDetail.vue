@@ -31,14 +31,18 @@ const goBack = () => {
 onMounted(async () => {
   loading.value = true
   
-  // 1. 从 Store 加载帖子详情（已集成为 Mock API 调用）
-  const post = await store.loadPostById(postId.value)
-  if (post) {
-    detailData.value = { ...post }
+  // 1. 根据路由 type 加载对应详情
+  let post = null;
+  if (postType.value === 'recruit') {
+    post = await store.loadRecruitmentById(postId.value);
   } else {
-    geekToast.error('未找到该内容')
+    post = await store.loadPostById(postId.value);
   }
-
+  if (post) {
+    detailData.value = { ...post };
+  } else {
+    geekToast.error('未找到该内容');
+  }
   // 2. 加载评论（根据帖子 ID 过滤）
   await store.loadComments(postId.value)
   
