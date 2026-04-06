@@ -64,7 +64,7 @@ const handleNavChange = (url) => {
           <div class="drawer-content">
             <div class="drawer-header">
               <div class="logo-wrap">
-                <span class="logo-icon">🚀</span>
+                <img src="/favicon.svg" class="logo-img" alt="logo" />
                 <span class="logo-text">CampusHub</span>
               </div>
               <button class="close-drawer-btn" @click="closeDrawer">×</button>
@@ -130,7 +130,7 @@ const handleNavChange = (url) => {
   flex-shrink: 0;
 }
 
-.logo-icon { font-size: 24px; }
+.logo-img { width: 28px; height: 28px; }
 .logo-text { font-size: 20px; font-weight: 800; color: var(--color-fg-default); letter-spacing: -0.5px; }
 .logo-text .hub { color: var(--color-accent-fg); }
 
