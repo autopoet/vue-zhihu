@@ -272,8 +272,32 @@ const goToDetail = (item) => {
 /* Other Sections */
 .floating-tags-cloud { display: flex; flex-wrap: wrap; gap: 12px; }
 .float-tag { padding: 8px 16px; background: var(--color-canvas-subtle); border-radius: 10px; font-size: 13px; font-weight: 600; }
-.heatmap-grid { display: grid; grid-template-rows: repeat(7, 12px); grid-auto-flow: column; gap: 4px; }
-.heatmap-cell { width: 12px; height: 12px; border-radius: 2px; background: var(--color-canvas-subtle); }
+/* 热力图增强与移动端滚动 */
+.heatmap-container { display: flex; flex-direction: column; gap: 12px; }
+.heatmap-scroll { width: 100%; overflow-x: auto; padding-bottom: 12px; cursor: grab; }
+.heatmap-scroll:active { cursor: grabbing; }
+
+/* 隐藏横向滚动条但保留功能 (可选) */
+.heatmap-scroll::-webkit-scrollbar { height: 4px; }
+.heatmap-scroll::-webkit-scrollbar-thumb { background: var(--color-border-default); border-radius: 4px; }
+
+.heatmap-grid { display: grid; grid-template-rows: repeat(7, 12px); grid-auto-flow: column; gap: 4px; width: max-content; }
+.heatmap-cell { width: 12px; height: 12px; border-radius: 2px; background: var(--color-canvas-subtle); transition: transform 0.1s; }
+.heatmap-cell:hover { transform: scale(1.3); }
 .heatmap-cell[data-level="1"] { background: rgba(9, 105, 218, 0.3); }
+.heatmap-cell[data-level="2"] { background: rgba(9, 105, 218, 0.5); }
+.heatmap-cell[data-level="3"] { background: rgba(9, 105, 218, 0.75); }
 .heatmap-cell[data-level="4"] { background: rgba(9, 105, 218, 1); }
+
+.heatmap-legend { display: flex; align-items: center; justify-content: flex-end; gap: 4px; font-size: 11px; color: var(--color-fg-subtle); }
+
+@media screen and (max-width: 768px) {
+  .user-info-section { flex-direction: column; text-align: center; gap: 20px; }
+  .user-stats { justify-content: center; }
+  .dashboard-grid { grid-template-columns: 1fr; grid-template-areas: "main" "skills" "infra"; }
+  .user-name { font-size: 28px; }
+  .modern-panel { padding: 20px; }
+  .heatmap-grid { gap: 3px; }
+  .heatmap-cell { width: 10px; height: 10px; }
+}
 </style>
